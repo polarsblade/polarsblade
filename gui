@@ -423,7 +423,7 @@ task.spawn(function()
     if savedData then
         while task.wait() do
             pcall(function()
-                timer.Text = convert_to_hms(savedData.executionTime - tick())
+                timer.Text = convert_to_hms(tick() - savedData.executionTime)
             end)
         end
     end
