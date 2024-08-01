@@ -306,7 +306,7 @@ task.spawn(function()
     if savedData then
         while task.wait() do
             pcall(function()
-                profit_2.Text = "$"..format(localPlayer:WaitForChild("DataFolder"):WaitForChild("Currency").Value - savedData.profit)
+                profit_2.Text = "$"..format(savedData.profit - localPlayer:WaitForChild("DataFolder"):WaitForChild("Currency").Value)
             end)
         end
     end
