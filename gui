@@ -1,0 +1,492 @@
+local httpService = game:GetService("HttpService")
+local players = game:GetService("Players")
+
+local localPlayer = players.LocalPlayer
+local savedData = httpService:JSONDecode(readfile("polarsblade.json"))
+
+local function format(number)
+    number = tostring(number)
+    return number:reverse():gsub("...","%0,",math.floor((#number-1)/3)):reverse()
+end
+
+function hms_format(Int)
+	return string.format("%02i", Int)
+end
+
+function convert_to_hms(seconds)
+	local minutes = (seconds - seconds%60)/60
+	seconds = seconds - minutes*60
+	local hours = (minutes - minutes%60)/60
+	minutes = minutes - hours*60
+	return hms_format(hours)..":"..hms_format(minutes)..":"..hms_format(seconds)
+end
+
+local gui = Instance.new("ScreenGui")
+gui.IgnoreGuiInset = true
+gui.ResetOnSpawn = true
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.Name = "GUI"
+gui.Parent = game:GetService("CoreGui")
+
+local holder = Instance.new("Frame")
+holder.AnchorPoint = Vector2.new(0.5, 0.5)
+holder.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+holder.BorderColor3 = Color3.new(0, 0, 0)
+holder.BorderSizePixel = 0
+holder.Position = UDim2.new(0.5, 0, 0.5, 0)
+holder.Size = UDim2.new(1, 0, 1, 0)
+holder.Visible = true
+holder.Name = "Holder"
+holder.Parent = gui
+
+local container = Instance.new("Frame")
+container.AnchorPoint = Vector2.new(0.5, 0.5)
+container.BackgroundColor3 = Color3.new(0.0470588, 0.0470588, 0.0470588)
+container.BorderColor3 = Color3.new(0, 0, 0)
+container.BorderSizePixel = 0
+container.Position = UDim2.new(0.496407181, 0, 0.5, 0)
+container.Size = UDim2.new(0.488245934, 0, 0.711598754, 0)
+container.Visible = true
+container.Name = "Container"
+container.Parent = holder
+
+local uicorner = Instance.new("UICorner")
+uicorner.Parent = container
+
+local uistroke = Instance.new("UIStroke")
+uistroke.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke.Parent = container
+
+local polarsblade = Instance.new("TextLabel")
+polarsblade.Font = Enum.Font.Unknown
+polarsblade.Text = "POLARSBLADE"
+polarsblade.TextColor3 = Color3.new(1, 1, 1)
+polarsblade.TextScaled = true
+polarsblade.TextSize = 14
+polarsblade.TextWrapped = true
+polarsblade.AnchorPoint = Vector2.new(0.5, 0.5)
+polarsblade.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+polarsblade.BorderColor3 = Color3.new(0, 0, 0)
+polarsblade.BorderSizePixel = 0
+polarsblade.Position = UDim2.new(0.551871121, 0, 0.0374178477, 0)
+polarsblade.Size = UDim2.new(1.03262126, 0, 0.0748357102, 0)
+polarsblade.Visible = true
+polarsblade.Name = "POLARSBLADE"
+polarsblade.Parent = container
+
+local uicorner_2 = Instance.new("UICorner")
+uicorner_2.Parent = polarsblade
+
+local uistroke_2 = Instance.new("UIStroke")
+uistroke_2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_2.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_2.Parent = polarsblade
+
+local uipadding = Instance.new("UIPadding")
+uipadding.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding.Parent = polarsblade
+
+local uitext_size_constraint = Instance.new("UITextSizeConstraint")
+uitext_size_constraint.MaxTextSize = 21
+uitext_size_constraint.Parent = polarsblade
+
+local uilist_layout = Instance.new("UIListLayout")
+uilist_layout.Padding = UDim.new(0.02500000037252903, 0)
+uilist_layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+uilist_layout.SortOrder = Enum.SortOrder.LayoutOrder
+uilist_layout.Parent = container
+
+local uipadding_2 = Instance.new("UIPadding")
+uipadding_2.PaddingBottom = UDim.new(0.05999999865889549, 0)
+uipadding_2.PaddingLeft = UDim.new(0.05999999865889549, 0)
+uipadding_2.PaddingRight = UDim.new(0.05999999865889549, 0)
+uipadding_2.PaddingTop = UDim.new(0.05999999865889549, 0)
+uipadding_2.Parent = container
+
+local wallet = Instance.new("Frame")
+wallet.AnchorPoint = Vector2.new(0.5, 0.5)
+wallet.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+wallet.BorderColor3 = Color3.new(0, 0, 0)
+wallet.BorderSizePixel = 0
+wallet.Position = UDim2.new(0.551871121, 0, 0.226080343, 0)
+wallet.Size = UDim2.new(1.03252578, 0, 0.246905118, 0)
+wallet.Visible = true
+wallet.Name = "Wallet"
+wallet.Parent = container
+
+local uistroke_3 = Instance.new("UIStroke")
+uistroke_3.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_3.Parent = wallet
+
+local uicorner_3 = Instance.new("UICorner")
+uicorner_3.Parent = wallet
+
+local uilist_layout_2 = Instance.new("UIListLayout")
+uilist_layout_2.Padding = UDim.new(0.10000000149011612, 0)
+uilist_layout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
+uilist_layout_2.SortOrder = Enum.SortOrder.LayoutOrder
+uilist_layout_2.VerticalAlignment = Enum.VerticalAlignment.Center
+uilist_layout_2.Parent = wallet
+
+local label = Instance.new("TextLabel")
+label.Font = Enum.Font.Unknown
+label.Text = "WALLET"
+label.TextColor3 = Color3.new(1, 1, 1)
+label.TextScaled = true
+label.TextSize = 14
+label.TextWrapped = true
+label.AnchorPoint = Vector2.new(0.5, 0.5)
+label.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+label.BorderColor3 = Color3.new(0, 0, 0)
+label.BorderSizePixel = 0
+label.Position = UDim2.new(0.554500103, 0, 0.207183689, 0)
+label.Size = UDim2.new(1.09300017, 0, 0.307119995, 0)
+label.Visible = true
+label.Name = "Label"
+label.Parent = wallet
+
+local uicorner_4 = Instance.new("UICorner")
+uicorner_4.Parent = label
+
+local uistroke_4 = Instance.new("UIStroke")
+uistroke_4.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_4.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_4.Parent = label
+
+local uipadding_3 = Instance.new("UIPadding")
+uipadding_3.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding_3.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding_3.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding_3.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding_3.Parent = label
+
+local uitext_size_constraint_2 = Instance.new("UITextSizeConstraint")
+uitext_size_constraint_2.MaxTextSize = 19
+uitext_size_constraint_2.Parent = label
+
+local uipadding_4 = Instance.new("UIPadding")
+uipadding_4.PaddingBottom = UDim.new(0.05999999865889549, 0)
+uipadding_4.PaddingLeft = UDim.new(0.05999999865889549, 0)
+uipadding_4.PaddingRight = UDim.new(0.05999999865889549, 0)
+uipadding_4.PaddingTop = UDim.new(0.05999999865889549, 0)
+uipadding_4.Parent = wallet
+
+local wallet_2 = Instance.new("TextLabel")
+wallet_2.Font = Enum.Font.Unknown
+wallet_2.Text = "Fetching Information..."
+wallet_2.TextColor3 = Color3.new(1, 1, 1)
+wallet_2.TextScaled = true
+wallet_2.TextSize = 14
+wallet_2.TextWrapped = true
+wallet_2.AnchorPoint = Vector2.new(0.5, 0.5)
+wallet_2.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+wallet_2.BorderColor3 = Color3.new(0, 0, 0)
+wallet_2.BorderSizePixel = 0
+wallet_2.Position = UDim2.new(0.554500103, 0, 0.703560054, 0)
+wallet_2.Size = UDim2.new(1.09300017, 0, 0.48563239, 0)
+wallet_2.Visible = true
+wallet_2.Name = "Wallet"
+wallet_2.Parent = wallet
+
+task.spawn(function()
+    if savedData then
+        while task.wait() do
+            pcall(function()
+                wallet_2.Text = "$"..tostring(localPlayer:WaitForChild("DataFolder"):WaitForChild("Currency").Value)
+            end)
+        end
+    end
+end)
+
+local uicorner_5 = Instance.new("UICorner")
+uicorner_5.Parent = wallet_2
+
+local uistroke_5 = Instance.new("UIStroke")
+uistroke_5.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_5.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_5.Parent = wallet_2
+
+local uipadding_5 = Instance.new("UIPadding")
+uipadding_5.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding_5.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding_5.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding_5.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding_5.Parent = wallet_2
+
+local uitext_size_constraint_3 = Instance.new("UITextSizeConstraint")
+uitext_size_constraint_3.MaxTextSize = 30
+uitext_size_constraint_3.Parent = wallet_2
+
+local profit = Instance.new("Frame")
+profit.AnchorPoint = Vector2.new(0.5, 0.5)
+profit.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+profit.BorderColor3 = Color3.new(0, 0, 0)
+profit.BorderSizePixel = 0
+profit.Position = UDim2.new(0.551871121, 0, 0.500777662, 0)
+profit.Size = UDim2.new(1.03252578, 0, 0.246905088, 0)
+profit.Visible = true
+profit.Name = "Profit"
+profit.Parent = container
+
+local uistroke_6 = Instance.new("UIStroke")
+uistroke_6.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_6.Parent = profit
+
+local uilist_layout_3 = Instance.new("UIListLayout")
+uilist_layout_3.Padding = UDim.new(0.10000000149011612, 0)
+uilist_layout_3.HorizontalAlignment = Enum.HorizontalAlignment.Center
+uilist_layout_3.SortOrder = Enum.SortOrder.LayoutOrder
+uilist_layout_3.VerticalAlignment = Enum.VerticalAlignment.Center
+uilist_layout_3.Parent = profit
+
+local uipadding_6 = Instance.new("UIPadding")
+uipadding_6.PaddingBottom = UDim.new(0.05999999865889549, 0)
+uipadding_6.PaddingLeft = UDim.new(0.05999999865889549, 0)
+uipadding_6.PaddingRight = UDim.new(0.05999999865889549, 0)
+uipadding_6.PaddingTop = UDim.new(0.05999999865889549, 0)
+uipadding_6.Parent = profit
+
+local label_2 = Instance.new("TextLabel")
+label_2.Font = Enum.Font.Unknown
+label_2.Text = "PROFIT"
+label_2.TextColor3 = Color3.new(1, 1, 1)
+label_2.TextScaled = true
+label_2.TextSize = 14
+label_2.TextWrapped = true
+label_2.AnchorPoint = Vector2.new(0.5, 0.5)
+label_2.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+label_2.BorderColor3 = Color3.new(0, 0, 0)
+label_2.BorderSizePixel = 0
+label_2.Position = UDim2.new(0.554500103, 0, 0.207184345, 0)
+label_2.Size = UDim2.new(1.09300017, 0, 0.307119876, 0)
+label_2.Visible = true
+label_2.Name = "Label"
+label_2.Parent = profit
+
+local uicorner_6 = Instance.new("UICorner")
+uicorner_6.Parent = label_2
+
+local uistroke_7 = Instance.new("UIStroke")
+uistroke_7.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_7.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_7.Parent = label_2
+
+local uipadding_7 = Instance.new("UIPadding")
+uipadding_7.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding_7.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding_7.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding_7.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding_7.Parent = label_2
+
+local uitext_size_constraint_4 = Instance.new("UITextSizeConstraint")
+uitext_size_constraint_4.MaxTextSize = 19
+uitext_size_constraint_4.Parent = label_2
+
+local profit_2 = Instance.new("TextLabel")
+profit_2.Font = Enum.Font.Unknown
+profit_2.Text = "Fetching Information..."
+profit_2.TextColor3 = Color3.new(1, 1, 1)
+profit_2.TextScaled = true
+profit_2.TextSize = 14
+profit_2.TextWrapped = true
+profit_2.AnchorPoint = Vector2.new(0.5, 0.5)
+profit_2.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+profit_2.BorderColor3 = Color3.new(0, 0, 0)
+profit_2.BorderSizePixel = 0
+profit_2.Position = UDim2.new(0.554500103, 0, 0.703560472, 0)
+profit_2.Size = UDim2.new(1.09300017, 0, 0.4856323, 0)
+profit_2.Visible = true
+profit_2.Name = "Profit"
+profit_2.Parent = profit
+
+task.spawn(function()
+    if savedData then
+        while task.wait() do
+            pcall(function()
+                profit_2.Text = "$"..format(localPlayer:WaitForChild("DataFolder"):WaitForChild("Currency").Value - savedData.profit)
+            end)
+        end
+    end
+end)
+
+local uicorner_7 = Instance.new("UICorner")
+uicorner_7.Parent = profit_2
+
+local uistroke_8 = Instance.new("UIStroke")
+uistroke_8.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_8.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_8.Parent = profit_2
+
+local uipadding_8 = Instance.new("UIPadding")
+uipadding_8.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding_8.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding_8.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding_8.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding_8.Parent = profit_2
+
+local uitext_size_constraint_5 = Instance.new("UITextSizeConstraint")
+uitext_size_constraint_5.MaxTextSize = 30
+uitext_size_constraint_5.Parent = profit_2
+
+local uicorner_8 = Instance.new("UICorner")
+uicorner_8.Parent = profit
+
+local time_elapsed = Instance.new("Frame")
+time_elapsed.AnchorPoint = Vector2.new(0.5, 0.5)
+time_elapsed.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+time_elapsed.BorderColor3 = Color3.new(0, 0, 0)
+time_elapsed.BorderSizePixel = 0
+time_elapsed.Position = UDim2.new(0.551871121, 0, 0.775475085, 0)
+time_elapsed.Size = UDim2.new(1.03252578, 0, 0.246905163, 0)
+time_elapsed.Visible = true
+time_elapsed.Name = "TimeElapsed"
+time_elapsed.Parent = container
+
+local uilist_layout_4 = Instance.new("UIListLayout")
+uilist_layout_4.Padding = UDim.new(0.10000000149011612, 0)
+uilist_layout_4.HorizontalAlignment = Enum.HorizontalAlignment.Center
+uilist_layout_4.SortOrder = Enum.SortOrder.LayoutOrder
+uilist_layout_4.VerticalAlignment = Enum.VerticalAlignment.Center
+uilist_layout_4.Parent = time_elapsed
+
+local uipadding_9 = Instance.new("UIPadding")
+uipadding_9.PaddingBottom = UDim.new(0.05999999865889549, 0)
+uipadding_9.PaddingLeft = UDim.new(0.05999999865889549, 0)
+uipadding_9.PaddingRight = UDim.new(0.05999999865889549, 0)
+uipadding_9.PaddingTop = UDim.new(0.05999999865889549, 0)
+uipadding_9.Parent = time_elapsed
+
+local uistroke_9 = Instance.new("UIStroke")
+uistroke_9.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_9.Parent = time_elapsed
+
+local label_3 = Instance.new("TextLabel")
+label_3.Font = Enum.Font.Unknown
+label_3.Text = "TIME ELAPSED"
+label_3.TextColor3 = Color3.new(1, 1, 1)
+label_3.TextScaled = true
+label_3.TextSize = 14
+label_3.TextWrapped = true
+label_3.AnchorPoint = Vector2.new(0.5, 0.5)
+label_3.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+label_3.BorderColor3 = Color3.new(0, 0, 0)
+label_3.BorderSizePixel = 0
+label_3.Position = UDim2.new(0.554500103, 0, 0.207183719, 0)
+label_3.Size = UDim2.new(1.09300017, 0, 0.307120144, 0)
+label_3.Visible = true
+label_3.Name = "Label"
+label_3.Parent = time_elapsed
+
+local uicorner_9 = Instance.new("UICorner")
+uicorner_9.Parent = label_3
+
+local uistroke_10 = Instance.new("UIStroke")
+uistroke_10.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_10.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_10.Parent = label_3
+
+local uipadding_10 = Instance.new("UIPadding")
+uipadding_10.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding_10.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding_10.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding_10.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding_10.Parent = label_3
+
+local uitext_size_constraint_6 = Instance.new("UITextSizeConstraint")
+uitext_size_constraint_6.MaxTextSize = 19
+uitext_size_constraint_6.Parent = label_3
+
+local uicorner_10 = Instance.new("UICorner")
+uicorner_10.Parent = time_elapsed
+
+local timer = Instance.new("TextLabel")
+timer.Font = Enum.Font.Unknown
+timer.Text = "Fetching Information..."
+timer.TextColor3 = Color3.new(1, 1, 1)
+timer.TextScaled = true
+timer.TextSize = 14
+timer.TextWrapped = true
+timer.AnchorPoint = Vector2.new(0.5, 0.5)
+timer.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+timer.BorderColor3 = Color3.new(0, 0, 0)
+timer.BorderSizePixel = 0
+timer.Position = UDim2.new(0.554500103, 0, 0.703560174, 0)
+timer.Size = UDim2.new(1.09300017, 0, 0.485632122, 0)
+timer.Visible = true
+timer.Name = "Timer"
+timer.Parent = time_elapsed
+
+task.spawn(function()
+    if savedData then
+        while task.wait() do
+            pcall(function()
+                timer.Text = hms_format(tick() - savedData.executionTime)
+            end)
+        end
+    end
+end)
+
+local uicorner_11 = Instance.new("UICorner")
+uicorner_11.Parent = timer
+
+local uistroke_11 = Instance.new("UIStroke")
+uistroke_11.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_11.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_11.Parent = timer
+
+local uipadding_11 = Instance.new("UIPadding")
+uipadding_11.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding_11.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding_11.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding_11.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding_11.Parent = timer
+
+local uitext_size_constraint_7 = Instance.new("UITextSizeConstraint")
+uitext_size_constraint_7.MaxTextSize = 30
+uitext_size_constraint_7.Parent = timer
+
+local discord = Instance.new("TextLabel")
+discord.Font = Enum.Font.Unknown
+discord.Text = "DISCORD.GG/POLARSBLADE"
+discord.TextColor3 = Color3.new(1, 1, 1)
+discord.TextScaled = true
+discord.TextSize = 14
+discord.TextWrapped = true
+discord.AnchorPoint = Vector2.new(0.5, 0.5)
+discord.BackgroundColor3 = Color3.new(0.027451, 0.027451, 0.027451)
+discord.BorderColor3 = Color3.new(0, 0, 0)
+discord.BorderSizePixel = 0
+discord.Position = UDim2.new(0, 395, 0, 385)
+discord.Size = UDim2.new(1.03262126, 0, 0.0743496194, 0)
+discord.Visible = true
+discord.Name = "DISCORD"
+discord.Parent = container
+
+local uicorner_12 = Instance.new("UICorner")
+uicorner_12.Parent = discord
+
+local uistroke_12 = Instance.new("UIStroke")
+uistroke_12.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uistroke_12.Color = Color3.new(0.0980392, 0.0980392, 0.0980392)
+uistroke_12.Parent = discord
+
+local uipadding_12 = Instance.new("UIPadding")
+uipadding_12.PaddingBottom = UDim.new(0.10000000149011612, 0)
+uipadding_12.PaddingLeft = UDim.new(0.10000000149011612, 0)
+uipadding_12.PaddingRight = UDim.new(0.10000000149011612, 0)
+uipadding_12.PaddingTop = UDim.new(0.10000000149011612, 0)
+uipadding_12.Parent = discord
+
+local aspect_ratio = Instance.new("UIAspectRatioConstraint")
+aspect_ratio.AspectRatio = 1.667993426322937
+aspect_ratio.Name = "AspectRatio"
+aspect_ratio.Parent = container
+
+local aspect_ratio_2 = Instance.new("UIAspectRatioConstraint")
+aspect_ratio_2.AspectRatio = 1.667993426322937
+aspect_ratio_2.DominantAxis = Enum.DominantAxis.Height
+aspect_ratio_2.Name = "AspectRatio"
+aspect_ratio_2.Parent = container
